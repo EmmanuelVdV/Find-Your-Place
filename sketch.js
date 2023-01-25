@@ -22,6 +22,7 @@ function setup() {
   noFill();
   stroke(255);
   rectMode(CENTER);
+  randomSeed(fxrand() * 10000);
   initGrid();
 }
 
@@ -31,7 +32,7 @@ function draw() {
 
   if (attempts < maxAttempts) {
     shapes.forEach(s => {
-      let dir = Math.round(fxrand() * 3);
+      let dir = Math.round(random() * 3);
       s.grow(dir);
     });
     attempts++;
@@ -53,16 +54,16 @@ function initGrid() {
     }
   }
 
-  let ix = fxrand();
-  let iy = fxrand();
-
 
   for (let s = 0; s < nMaxShapes; s++) {
-    let c = Math.round((1-fxrand(fxrand(fxrand()))) * (gridCols - 1));
-    let r = Math.round((1-fxrand(fxrand(fxrand()))) * (gridRows - 1));
+    // let c = Math.round((1-random()) * (gridCols - 1));
+    // let r = Math.round((1-random()) * (gridRows - 1));
+
+    let c = Math.round(Math.min(random(), random()) * (gridCols - 1));
+    let r = Math.round(Math.max(random(), random()) * (gridRows - 1));
 
     if (!selectSingularity && c > 10 && c < (gridCols - 10) && r > 10 && r < (gridRows - 10)) { // selection of Singularity
-      isSingularity = fxrand() > 0.98 ? true : false;
+      isSingularity = random() > 0.98 ? true : false;
       if (isSingularity) selectSingularity = true;
     }
 
